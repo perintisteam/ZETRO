@@ -1,11 +1,7 @@
 import { SmoothZoom } from "./zoom.js";
 
 // VP8 first — avoids VP9 alpha decode errors on Linux (GStreamer / Totem)
-const MIME_TYPES = [
-  "video/webm;codecs=vp8,opus",
-  "video/webm;codecs=vp8",
-  "video/webm",
-];
+const MIME_TYPES = ["video/webm;codecs=vp8,opus", "video/webm;codecs=vp8", "video/webm"];
 
 function pickMimeType() {
   return MIME_TYPES.find((t) => MediaRecorder.isTypeSupported(t)) || "";
@@ -158,9 +154,7 @@ export class ZetroRecorder {
 
     const micAudio = this.micStream?.getAudioTracks()[0];
     if (micAudio && this.micEnabled && this.audioContext && this.micGain) {
-      this.micSourceNode = this.audioContext.createMediaStreamSource(
-        new MediaStream([micAudio])
-      );
+      this.micSourceNode = this.audioContext.createMediaStreamSource(new MediaStream([micAudio]));
       this.micSourceNode.connect(this.micGain);
     }
   }
@@ -313,8 +307,7 @@ export class ZetroRecorder {
     const tick = () => {
       if (this.phase !== "preview") return;
 
-      const hasSignal =
-        this.screenPreview.readyState >= 2 && this.screenPreview.videoWidth > 0;
+      const hasSignal = this.screenPreview.readyState >= 2 && this.screenPreview.videoWidth > 0;
       this.onPreviewSignal?.(hasSignal);
 
       if (this.previewViewport) {
@@ -391,11 +384,7 @@ export class ZetroRecorder {
   }
 
   usesDirectScreenCapture() {
-    return (
-      !this.camEnabled &&
-      this.zoom.scale <= 1.02 &&
-      this.zoom.targetScale <= 1.02
-    );
+    return !this.camEnabled && this.zoom.scale <= 1.02 && this.zoom.targetScale <= 1.02;
   }
 
   buildCompositeStream() {

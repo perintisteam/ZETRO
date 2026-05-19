@@ -38,7 +38,8 @@ async function main() {
     confirm && (confirm.disabled = false);
     document.getElementById("cancelPreviewBtn")?.classList.remove("hidden");
     const wrap = document.getElementById("previewWrap");
-    if (wrap) wrap.style.background = "linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%)";
+    if (wrap)
+      wrap.style.background = "linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%)";
   });
   await shot(page, "record-preview");
 

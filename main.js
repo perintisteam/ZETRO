@@ -102,8 +102,7 @@ ipcMain.handle("zetro:get-sources", async () => {
 
 ipcMain.handle("zetro:save-recording", async (_, arrayBuffer, suggestedName) => {
   const dir = getRecordingsDir();
-  const safeName =
-    suggestedName?.replace(/[^\w.-]/g, "_") || `zetro-${Date.now()}.webm`;
+  const safeName = suggestedName?.replace(/[^\w.-]/g, "_") || `zetro-${Date.now()}.webm`;
   let filePath = path.join(dir, safeName.endsWith(".webm") ? safeName : `${safeName}.webm`);
   fs.writeFileSync(filePath, Buffer.from(arrayBuffer));
 

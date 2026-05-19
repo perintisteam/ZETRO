@@ -13,10 +13,16 @@
 </p>
 
 <p align="center">
+  <a href="https://github.com/perintisteam/ZETRO/actions/workflows/ci.yml"><img src="https://github.com/perintisteam/ZETRO/actions/workflows/ci.yml/badge.svg" alt="CI" /></a>
+  <img src="https://img.shields.io/badge/code_style-prettier-ff69b4?logo=prettier&logoColor=white" alt="Prettier" />
+</p>
+
+<p align="center">
   <a href="#features">Features</a> ·
   <a href="#screenshots">Screenshots</a> ·
   <a href="#setup">Setup</a> ·
   <a href="#usage">Usage</a> ·
+  <a href="#development">Development</a> ·
   <a href="#license">License</a>
 </p>
 
@@ -36,14 +42,14 @@
 
 ### Record & preview
 
-| Idle — ready to pick a screen | Preview — verify before you record |
-|:---:|:---:|
+|           Idle — ready to pick a screen            |            Preview — verify before you record            |
+| :------------------------------------------------: | :------------------------------------------------------: |
 | ![Record idle](./docs/screenshots/record-idle.png) | ![Record preview](./docs/screenshots/record-preview.png) |
 
 ### Library & settings
 
-| Recordings library | Settings |
-|:---:|:---:|
+|             Recordings library             |                   Settings                   |
+| :----------------------------------------: | :------------------------------------------: |
 | ![Library](./docs/screenshots/library.png) | ![Settings](./docs/screenshots/settings.png) |
 
 ### Dark theme
@@ -144,14 +150,41 @@ Zetro mitigates this by converting saved recordings to MP4 with H.264 video and 
 └── package.json
 ```
 
+## Development
+
+Format and lint before opening a pull request:
+
+```bash
+npm run format      # apply Prettier
+npm run lint        # format check + main-process syntax check
+npm run build:css   # rebuild Tailwind output
+```
+
+### CI/CD (GitHub Actions)
+
+| Workflow                       | Trigger                            | What it does                                                                         |
+| ------------------------------ | ---------------------------------- | ------------------------------------------------------------------------------------ |
+| [CI](.github/workflows/ci.yml) | Push / PR to `main`                | Prettier check, JS syntax check, CSS build, verify `assets/styles.css` is up to date |
+| [CD](.github/workflows/cd.yml) | Tag `v*` (e.g. `v1.0.0`) or manual | Builds release bundle and publishes a GitHub Release                                 |
+
+Create a release:
+
+```bash
+git tag v1.0.0
+git push origin v1.0.0
+```
+
 ## Scripts
 
-| Command | Description |
-|---------|-------------|
-| `npm run dev` | Build CSS and start Electron |
-| `npm run build:css` | Compile `src/input.css` → `assets/styles.css` |
-| `npm run watch:css` | Watch Tailwind input and rebuild CSS |
-| `npm run screenshots` | Regenerate README screenshots |
+| Command                | Description                                   |
+| ---------------------- | --------------------------------------------- |
+| `npm run dev`          | Build CSS and start Electron                  |
+| `npm run build:css`    | Compile `src/input.css` → `assets/styles.css` |
+| `npm run watch:css`    | Watch Tailwind input and rebuild CSS          |
+| `npm run format`       | Format code with Prettier                     |
+| `npm run format:check` | Check formatting (used in CI)                 |
+| `npm run lint`         | Run all lint checks                           |
+| `npm run screenshots`  | Regenerate README screenshots                 |
 
 To refresh screenshots after UI changes:
 

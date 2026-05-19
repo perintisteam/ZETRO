@@ -78,9 +78,17 @@ const recorder = new ZetroRecorder({
         if (saved.playbackFixed) {
           setStatus(`${tr("savedToLibrary")} · ${result.sizeMb} MB`, false, true);
         } else if (saved.playbackWarning === "ffmpeg-not-found") {
-          setStatus(`${tr("savedToLibrary")} · ${result.sizeMb} MB — ${tr("ffmpegHint")}`, false, true);
+          setStatus(
+            `${tr("savedToLibrary")} · ${result.sizeMb} MB — ${tr("ffmpegHint")}`,
+            false,
+            true
+          );
         } else {
-          setStatus(`${tr("savedToLibrary")} · ${result.sizeMb} MB — ${tr("encodeWarn")}`, false, true);
+          setStatus(
+            `${tr("savedToLibrary")} · ${result.sizeMb} MB — ${tr("encodeWarn")}`,
+            false,
+            true
+          );
         }
       } else {
         const url = URL.createObjectURL(result.blob);
@@ -236,14 +244,18 @@ async function populateDevices() {
     mics.length === 0
       ? `<option value="">${tr("noMic")}</option>`
       : mics
-          .map((d, i) => `<option value="${d.deviceId}">${d.label || `${tr("mic")} ${i + 1}`}</option>`)
+          .map(
+            (d, i) => `<option value="${d.deviceId}">${d.label || `${tr("mic")} ${i + 1}`}</option>`
+          )
           .join("");
 
   els.camSelect.innerHTML =
     cameras.length === 0
       ? `<option value="">${tr("noCam")}</option>`
       : cameras
-          .map((d, i) => `<option value="${d.deviceId}">${d.label || `${tr("cam")} ${i + 1}`}</option>`)
+          .map(
+            (d, i) => `<option value="${d.deviceId}">${d.label || `${tr("cam")} ${i + 1}`}</option>`
+          )
           .join("");
 
   if (prevMic && [...els.micSelect.options].some((o) => o.value === prevMic)) {
@@ -264,8 +276,7 @@ function updateNavTabs(active) {
   document.querySelectorAll(".nav-tab").forEach((btn) => {
     const isRecord = btn.classList.contains("nav-to-record") || btn.id === "navRecordBtn";
     const isLibrary = btn.classList.contains("nav-to-library") || btn.id === "navLibraryBtn";
-    const on =
-      (active === "record" && isRecord) || (active === "library" && isLibrary);
+    const on = (active === "record" && isRecord) || (active === "library" && isLibrary);
     btn.classList.toggle("nav-tab-active", on);
     btn.classList.toggle("text-gpt-muted", !on);
   });
@@ -388,9 +399,7 @@ async function onSourcePicked(sourceId) {
     await recorder.preparePreview({ ...getOpts(), sourceId });
   } catch (err) {
     const key =
-      err.message === "previewLoadFail" || err.message === "webmUnsupported"
-        ? err.message
-        : null;
+      err.message === "previewLoadFail" || err.message === "webmUnsupported" ? err.message : null;
     setStatus(key || err.message, true, !key);
     recorder.cancelPreview();
     console.error(err);
