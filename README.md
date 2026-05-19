@@ -1,6 +1,24 @@
-# Zetro
+<p align="center">
+  <img src="./assets/logo.svg" alt="Zetro" width="72" height="72" />
+</p>
 
-Zetro is a desktop screen recorder built with Electron. It records the screen, optional microphone audio, and optional webcam overlay, then stores recordings in the user's `Videos/Zetro` folder.
+<h1 align="center">Zetro</h1>
+
+<p align="center">
+  Desktop screen recorder for Linux — screen &amp; window capture, microphone, webcam overlay, smooth zoom, and a built-in recordings library.
+</p>
+
+<p align="center">
+  <img src="./docs/screenshots/record-idle.png" alt="Zetro main screen" width="720" />
+</p>
+
+<p align="center">
+  <a href="#features">Features</a> ·
+  <a href="#screenshots">Screenshots</a> ·
+  <a href="#setup">Setup</a> ·
+  <a href="#usage">Usage</a> ·
+  <a href="#license">License</a>
+</p>
 
 ## Features
 
@@ -9,10 +27,30 @@ Zetro is a desktop screen recorder built with Electron. It records the screen, o
 - Microphone and webcam toggles
 - Webcam picture-in-picture overlay
 - Smooth zoom controls during recording
-- Local recordings library
-- English and Indonesian UI text
+- Local recordings library with in-app playback
+- English and Indonesian UI
 - Light, dark, and system themes
-- Automatic playback-safe conversion with `ffmpeg`
+- Automatic playback-safe MP4 conversion with `ffmpeg`
+
+## Screenshots
+
+### Record & preview
+
+| Idle — ready to pick a screen | Preview — verify before you record |
+|:---:|:---:|
+| ![Record idle](./docs/screenshots/record-idle.png) | ![Record preview](./docs/screenshots/record-preview.png) |
+
+### Library & settings
+
+| Recordings library | Settings |
+|:---:|:---:|
+| ![Library](./docs/screenshots/library.png) | ![Settings](./docs/screenshots/settings.png) |
+
+### Dark theme
+
+<p align="center">
+  <img src="./docs/screenshots/record-dark.png" alt="Zetro dark theme" width="720" />
+</p>
 
 ## Requirements
 
@@ -61,7 +99,7 @@ npm run dev
 4. Confirm the preview.
 5. Start recording.
 6. Stop recording when finished.
-7. Open the Recordings tab to play, reveal, or fix saved recordings.
+7. Open the **Recordings** tab to play, reveal, or fix saved files.
 
 Recordings are saved to:
 
@@ -69,7 +107,7 @@ Recordings are saved to:
 ~/Videos/Zetro
 ```
 
-## Playback Compatibility
+## Playback compatibility
 
 Electron's `MediaRecorder` produces WebM during recording. On some Linux systems, file managers and GStreamer try to decode these files as VP8 with alpha metadata and fail with errors such as:
 
@@ -77,9 +115,9 @@ Electron's `MediaRecorder` produces WebM during recording. On some Linux systems
 Cannot handle streams without an initial alpha buffer.
 ```
 
-Zetro mitigates this by converting saved recordings to MP4 with H.264 video and AAC audio when `ffmpeg` is available. If conversion fails or `ffmpeg` is missing, use the Recordings tab and click `Fix playback` after installing `ffmpeg`.
+Zetro mitigates this by converting saved recordings to MP4 with H.264 video and AAC audio when `ffmpeg` is available. If conversion fails or `ffmpeg` is missing, use the Recordings tab and click **Fix playback** after installing `ffmpeg`.
 
-## Project Structure
+## Project structure
 
 ```text
 .
@@ -92,8 +130,12 @@ Zetro mitigates this by converting saved recordings to MP4 with H.264 video and 
 │   ├── settings.js     # Theme and language persistence
 │   ├── styles.css      # Generated Tailwind CSS
 │   └── zoom.js         # Smooth zoom behavior
+├── docs/
+│   └── screenshots/    # README screenshots
 ├── main/
 │   └── playback.js     # ffmpeg playback-safe conversion helpers
+├── scripts/
+│   └── capture-screenshots.mjs
 ├── src/
 │   └── input.css       # Tailwind source CSS
 ├── index.html          # App shell
@@ -104,9 +146,20 @@ Zetro mitigates this by converting saved recordings to MP4 with H.264 video and 
 
 ## Scripts
 
-- `npm run dev` builds CSS and starts Electron.
-- `npm run build:css` compiles `src/input.css` into `assets/styles.css`.
-- `npm run watch:css` watches Tailwind input and rebuilds CSS.
+| Command | Description |
+|---------|-------------|
+| `npm run dev` | Build CSS and start Electron |
+| `npm run build:css` | Compile `src/input.css` → `assets/styles.css` |
+| `npm run watch:css` | Watch Tailwind input and rebuild CSS |
+| `npm run screenshots` | Regenerate README screenshots |
+
+To refresh screenshots after UI changes:
+
+```bash
+npm install --no-save playwright@1.52.0
+npx playwright install chromium
+npm run screenshots
+```
 
 ## License
 

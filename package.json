@@ -6,7 +6,8 @@
   "scripts": {
     "build:css": "tailwindcss -i ./src/input.css -o ./assets/styles.css",
     "dev": "npm run build:css && electron .",
-    "watch:css": "tailwindcss -i ./src/input.css -o ./assets/styles.css --watch"
+    "watch:css": "tailwindcss -i ./src/input.css -o ./assets/styles.css --watch",
+    "screenshots": "npm run build:css && node scripts/capture-screenshots.mjs"
   },
   "keywords": [],
   "author": "",
